@@ -1,0 +1,166 @@
+/* Empty. Add your own CSS if you like */
+/*a, u {
+    text-decoration: none;
+}
+
+.custom-icon {
+   color : #04B404;
+}
+
+.custom-icon-main {
+  color: ;
+}*/
+@mediascreen and (max-width: 400px){
+.scroll{
+	padding-top: 30%;
+}
+}
+
+.scroll {
+    height: 100%;
+}
+.float-button {
+ 
+  background-color:#303f9f;
+  opacity: 0.9;
+  color: white;
+  border-radius: 50%;
+  /*border-radius:15% 0 0 0;*/
+  width: 30px;
+  padding: 25px;
+  font-size: 40px;
+  position: fixed;
+  bottom: 5%; /* Adjust height */
+  right: 5%; /* Adjust position */
+  z-index: 1000;
+}
+ 
+.float-button .height_fix {
+  margin-top: 100%;
+  border: 1px solid red;
+}
+ 
+.float-button .content {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  margin-top: -20px;
+  color: white;
+}
+.list .item.item-accordion {
+  line-height: 38px;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: 0.09s all linear;
+}
+.list .item.item-accordion.ng-hide {
+  line-height: 0px;
+}
+.list .item.item-accordion.ng-hide-add,
+.list .item.item-accordion.ng-hide-remove {
+  display: block !important;
+}
+
+.imageHolder_1 { 
+   position: absolute;
+   width: 10px;
+   height: 10px;
+}
+
+  .button.button-assertive-gmail {
+    border-color: #db3236;
+    background-color: #ef473a;
+    color: #db3236; }
+    .button.button-assertive-gmail:hover {
+      color: #db3236;
+      text-decoration: none; }
+    .button.button-assertive-gmail.active, .button.button-assertive-gmail.activated {
+      border-color: #db3236;
+      background-color: #db3236;
+      box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1); }
+    .button.button-assertive-gmail.button-clear {
+      border-color: transparent;
+      background: none;
+      box-shadow: none;
+      color: #ef473a; }
+    .button.button-assertive-gmail.button-icon {
+      border-color: transparent;
+      background: none; }
+    .button.button-assertive-gmail.button-outline {
+      border-color: #ef473a;
+      background: transparent;
+      color: #ef473a; }
+      .button.button-assertive-gmail.button-outline.active, .button.button-assertive-gmail.button-outline.activated {
+        background-color: #ef473a;
+        box-shadow: none;
+        color: #db3236; }
+        
+  .button.button-assertive-facebook {
+    border-color: #3b5998;
+    background-color: #3b5998;
+    color: #3b5998; }
+    .button.button-assertive-facebook:hover {
+      color: #3b5998;
+      text-decoration: none; }
+    .button.button-assertive-facebook.active, .button.button-assertive-facebook.activated {
+      border-color: #3b5998;
+      background-color: #3b5998;
+      box-shadow: inset 0 1px 4px #3b5998; }
+    .button.button-assertive-facebook.button-clear {
+      border-color: transparent;
+      background: none;
+      box-shadow: none;
+      color: #3b5998; }
+    .button.button-assertive-facebook.button-icon {
+      border-color: transparent;
+      background: none; }
+    .button.button-assertive-facebook.button-outline {
+      border-color: #3b5998;
+      background: transparent;
+      color: #3b5998; }
+      .button.button-assertive-facebook.button-outline.active, .button.button-assertive-facebook.button-outline.activated {
+        background-color: #3b5998;
+        box-shadow: none;
+        color: #3b5998; }
+        
+  .button.button-assertive-custom {
+    border-color: #e48912;
+    background-color: #e48912;
+    color: #e48912; }
+    .button.button-assertive-custom:hover {
+      color: #e48912;
+      text-decoration: none; }
+    .button.button-assertive-custom.active, .button.button-assertive-custom.activated {
+      border-color: #e48912;
+      background-color: #e48912;
+      box-shadow: inset 0 1px 4px #e48912; }
+    .button.button-assertive-custom.button-clear {
+      border-color: transparent;
+      background: none;
+      box-shadow: none;
+      color: #e48912; }
+    .button.button-assertive-custom.button-icon {
+      border-color: transparent;
+      background: none; }
+    .button.button-assertive-custom.button-outline {
+      border-color: #e48912;
+      background: transparent;
+      color: #e48912; }
+      .button.button-assertive-custom.button-outline.active, .button.button-assertive-custom.button-outline.activated {
+        background-color: #e48912;
+        box-shadow: none;
+        color: #e48912; }
+  .bar.bar-stable-custom {
+    border-color:  #e48912;
+    background-color: #e48912;
+    background-image: linear-gradient(0deg, #b2b2b2, #b2b2b2 50%, transparent 50%);
+    color: #ffffff; }
+    .bar.bar-stable-custom .title {
+      color: #ffffff; }
+    .bar.bar-stable-custom.bar-footer {
+      background-image: linear-gradient(180deg, #b2b2b2, #b2b2b2 50%, transparent 50%); }
+        
+  

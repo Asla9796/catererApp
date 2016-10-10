@@ -1,0 +1,39 @@
+<ion-view title="Canceled Orders" ng-controller='canceledOrdersCtrl'>
+      <ion-content has-header="true" padding="true" class="overflow-scroll" scroll="true" >
+          <div ng-if="!isOnline">
+            <div class="bar bar-assertive">
+              <h2 class="title">You are not connected to the internet</h2>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+          </div>         
+
+                <div class="card" ng-repeat="order in canceledOrders | orderBy : '-id'">
+                  <div class="item item-divider-custom-delivery" ng-if="order.isDelivery">
+                    Order : {{ order.token }}
+                  </div>
+                  <div class="item item-divider-custom-takeAway" ng-if="!order.isDelivery">
+                    Order : {{ order.token }}
+                  </div>
+                  
+                  <div class="item item-text-wrap" ng-repeat="object in order.items">
+                    <div class = "row">
+                      <div class = "col"><p style="font-size:18px; text-align:left">{{ object.item.name }}</p></div>
+                      <div class = "col"><p style="font-size:18px; text-align:right">Rs. {{ object.item.price }}</p></div>
+                    </div>
+                    <div class = "row">
+                      <div class = "col"><p> Min Time : {{ object.item.minTime }} min</p></div>
+                      <div class = "col col-20"><p style="text-align:right">{{ object.quantity }} qty</p></div>
+                    </div>
+                  </div>
+                  
+                  <div class="item item-divider">
+                    <p style="font-size:18px; text-align:left; color: red">Cost : Rs. {{ order.billAmount }}/-</p>
+                  </div>
+                </div>      
+      </ion-content>
+
+</ion-view>

@@ -1,0 +1,70 @@
+<ion-view view-title="Menu" ng-controller='menuCtrl'>
+  <ion-content class="overflow-scroll" scroll="true" >
+          <div ng-if="!isOnline">
+            <div class="bar bar-assertive">
+              <h2 class="title">You are not connected to the internet</h2>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+          </div>     
+    <!--<ion-list>-->
+    <!--  <ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.id}}">-->
+    <!--    {{playlist.title}}-->
+    <!--  </ion-item>-->
+    <!--</ion-list>-->
+    	<!--<div class="row_image_func" ng-style="{'background-image': 'url({})'};-->
+    	<!--                                    width: 100%;-->
+     <!--                                     height: 400px;-->
+     <!--                                     background-size: 100% 100%;">-->
+     
+     <!-- </div>-->
+    <!--<img src="img/resto/images.jpeg" style="width: 100vw; height: 200px;">-->
+    
+    
+      <ion-list>
+        <div ng-repeat="group in groups">
+          <ion-item class="item-stable"
+                    ng-click="toggleGroup(group)"
+                    ng-class="{active: isGroupShown(group)}">
+              <i class="icon icon-right" ng-class="isGroupShown(group) ? 'ion-ios-arrow-up' : 'ion-ios-arrow-down'"></i>
+            &nbsp;
+            {{group.type}}{{group.prepTime}}
+          </ion-item>
+          <ion-item class="item-accordion"
+                    ng-repeat="item in group.items"
+                    ng-show="isGroupShown(group)">
+           
+            <div class = "row">
+              <div class = "col"><p style="font-size:18px; text-align:left">{{ item.name }}</p></div>
+              <div class = "col"><p style="font-size:18px; text-align:right">Rs. {{ item.price }}</p></div>
+            </div>
+             <div class = "list">
+
+                <div class='item item-borderless item-button-right' ng-init="obj={ check : item.isAvailable }">
+                  <p> Min Time : {{ item.minTime }} min</p>
+                  <button class="button button-assertive" ng-if="!obj.check" ng-click="obj.check = true; isAvailable(obj.check,item)">
+                   Not Available
+                  </button>
+                  <button class="button button-balanced" ng-if="obj.check" ng-click="obj.check = false; isAvailable(obj.check,item)">
+                    Available
+                  </button>
+                </div>
+
+              </div>
+            
+          </ion-item>
+        </div>
+      </ion-list>
+			 
+  </ion-content>
+    <div class="float-button" ng-click="scrollToTop()">
+      <span class="height-fix">
+        <a class="content">
+          <i class="ion-arrow-up-a"> </i>
+        </a>
+      </span>
+    </div>
+</ion-view>

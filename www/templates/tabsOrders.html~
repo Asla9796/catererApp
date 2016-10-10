@@ -1,0 +1,353 @@
+<ion-view title="Orders" ng-controller='tabsOrdersCtrl'>
+          <div ng-if="!isOnline">
+            <div class="bar bar-assertive bar-subheader">
+              <h2 class="title">You are not connected to the internet</h2>
+            </div>
+          </div>
+  <ion-tabs class="tabs-striped tabs-color-assertive-custom tabs-top">
+    <!-- Dashboard Tab -->
+    <ion-tab title="({{ pendingNumber }}) Pending" ui-sref="app.pendingOrders" ng-controller='pendingOrdersCtrl'>
+      <ion-content has-header="true" padding="true" class="overflow-scroll" scroll="true" >
+        <br><br><br><br>
+        
+                <div class="card" ng-repeat="order in pendingOrders | orderBy : '-id'">
+                  <div class="item item-divider-custom-delivery" ng-if="order.isDelivery">
+                    Delivery || Order : {{ order.token }}
+                  </div>
+                  <div class="item item-divider-custom-takeAway" ng-if="!order.isDelivery">
+                    Take Away || Order : {{ order.token }}
+                  </div>
+                  
+                  <div class="item item-text-wrap" ng-repeat="object in order.items">
+                    <div class = "row">
+                      <div class = "col col-50"><p style="font-size:18px; text-align:left">{{ object.item.name }}</p></div>
+                      <div class = "col col-25"><p style="font-size:18px; text-align:right">Rs. {{ object.item.price }}</p></div>
+                      <div class = "col col-25"><p style="text-align:right">
+                        <a class="button button-icon icon  ion-ios-close-outline" ng-click="remove(object.itemId, object.id, order.billAmount, object.item.price, object.quantity, order.id)"></a>
+                      </div>
+                    </div>
+                    <div class = "row">
+                      <div class = "col"><p> Min Time : {{ object.item.minTime }} min</p></div>
+                      <div class = "col col-20"><p style="text-align:right">{{ object.quantity }} qty</p></div>
+                    </div>
+                  </div>
+
+                  <div class="item item-divider">
+                    Custom Instructions
+                  </div>
+                  <div class="item item-text-wrap">
+                      {{ order.customize_order }}
+                  </div>                  
+                  
+                  <div class="item item-divider item-button-right" ng-if="!order.isDelivery">
+                    Take Away Time :
+                    <button class="button button-small button-assertive button-clear" ng-if="!order.isImmediate">
+                      {{ getTime(order.takeAwayHour, order.takeAwayMinute) }}
+                    </button> 
+                    <button class="button button-small button-assertive button-clear" ng-if="order.isImmediate">
+                      Immediate
+                    </button> 
+                  </div>
+                  
+                  <div class="item item-divider" ng-if="order.isDelivery">
+                    Delivery Address :
+                  </div>
+                  <div class="item item-text-wrap" ng-if="order.isDelivery">
+                      {{ order.deliveryAddress }}
+                  </div>
+                  
+                  <div class="item item-divider item-button-right">
+                    Payment Method :
+                    <button class="button button-small button-assertive button-clear">
+                      {{ order.paymentMethod }}
+                    </button>  
+                  </div>
+                  
+                  <div class="item item-divider">
+                    <div class="row">
+                      <div class="col col-50">
+                        <p style="font-size:18px; text-align:left; color: red">Sub Total : Rs. {{ order.billAmount }}/-</p>
+                      </div>
+                        <div class="col col-25 text-right">
+                          <button class="button button-small button-assertive" ng-click="cancelOrder(order, '')">
+                            <!--<i class="icon ion-android-close"></i>-->
+                            Cancel
+                          </button>
+                        </div>
+                        <div class="col col-25 text-right">
+                          <button class="button button-small button-balanced" ng-click="confirmOrder(order)">
+                            <!--<i class="icon ion-android-done"></i>  -->
+                            Confirm
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+      </ion-content>
+    </ion-tab>
+  
+    <!-- Chats Tab -->
+    <ion-tab title="({{ confirmedNumber }}) Confirmed"  ui-sref="app.confirmedOrders" ng-controller='confirmedOrdersCtrl'>
+      <ion-content has-header="true" padding="true" class="overflow-scroll" scroll="true" >
+      <ion-scroll direction="y" class="scroll">
+        <br><br><br><br>
+                <div class="card" ng-repeat="order in confirmedOrders | orderBy : '-id'">
+                  <div class="item item-divider-custom-delivery" ng-if="order.isDelivery">
+                    Delivery || Order : {{ order.token }}
+                  </div>
+                  <div class="item item-divider-custom-takeAway" ng-if="!order.isDelivery">
+                    Take Away || Order : {{ order.token }}
+                  </div>
+                  
+                  <div class="item item-text-wrap" ng-repeat="object in order.items">
+                    <div class = "row">
+                      <div class = "col"><p style="font-size:18px; text-align:left">{{ object.item.name }}</p></div>
+                      <div class = "col"><p style="font-size:18px; text-align:right">Rs. {{ object.item.price }}</p></div>
+                    </div>
+                    <div class = "row">
+                      <div class = "col"><p> Min Time : {{ object.item.minTime }} min</p></div>
+                      <div class = "col col-20"><p style="text-align:right">{{ object.quantity }} qty</p></div>
+                    </div>
+                  </div>
+                  
+                  <div class="item item-divider">
+                    Custom Instructions
+                  </div>
+                  <div class="item item-text-wrap">
+                      {{ order.customize_order }}
+                  </div>
+                  
+                  <div class="item item-divider item-button-right" ng-if="!order.isDelivery">
+                    Take Away Time :
+                    <button class="button button-small button-assertive button-clear" ng-if="!order.isImmediate">
+                      {{ getTime(order.takeAwayHour, order.takeAwayMinute) }}
+                    </button> 
+                    <button class="button button-small button-assertive button-clear" ng-if="order.isImmediate">
+                     Immediate
+                    </button> 
+                  </div>
+                  
+                  <div class="item item-divider" ng-if="order.isDelivery">
+                    Delivery Address :
+                  </div>
+                  <div class="item item-text-wrap" ng-if="order.isDelivery">
+                      {{ order.deliveryAddress }}
+                  </div>
+                  
+                  <div class="item item-divider item-button-right">
+                    Payment Method :
+                    <button class="button button-small button-assertive button-clear">
+                      {{ order.paymentMethod }}
+                    </button>  
+                  </div>
+                  
+                  <div class="item item-divider">
+                    <div class="row">
+                      <div class="col">
+                        <p style="font-size:15px">Sub Total : Rs. {{ order.billAmount }}/-</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <p style="font-size:15px">Packing Charge : Rs. {{ order.packing_charge }}/-</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <p style="font-size:15px">Delivery Charge : Rs. {{ order.delivery_charge }}/-</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <p style="font-size:15px">Convenience Charge : Rs. {{ order.conv_charge }}/-</p>
+                      </div>
+                    </div>
+                    <div class="item item-divider" ng-if="order.paymentMethod != 'cashOnDelivery'">
+                      Payment Status : {{order.payment_status}}
+                    </div>
+                    <div class="item item-divider" ng-if="order.print_status">
+                      Receipt Print Status : printed
+                    </div>
+                    <div class="item item-divider" ng-if="!order.print_status">
+                      Receipt Print Status : not printed
+                    </div>
+                    <div class="row">
+                        <div class="col col-50">
+                          <p style="font-size:18px; text-align:left; color: red">Total Amount : Rs. {{ order.totalAmount }}/-</p>
+                        </div>
+                        <div class="col col-25 text-right">
+                          <button class="button button-small button-assertive" ng-click="printReceipt('printableArea', order)" ng-if="order.payment_status == 'paid' && !order.print_status">
+                            <!--<i class="icon ion-android-done"></i>  -->
+                            Send receipt for printing
+                          </button>
+                        </div>
+                        <div class="col col-25 text-right">
+                          <button class="button button-small button-balanced" ng-click="deliverOrder(order)" ng-if="order.paymentMethod!='cashOnDelivery'" ng-if="order.payment_status == 'paid'">
+                            <!--<i class="icon ion-android-done"></i>  -->
+                              Deliver
+                          </button>
+                          <button class="button button-small button-balanced" ng-click="deliverOrder(order)" ng-if="order.paymentMethod=='cashOnDelivery'" ng-if="order.payment_status == 'paid'">
+                            <!--<i class="icon ion-android-done"></i>  -->
+                             Dispatch
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="printableArea" style="display: none;">
+                      <p style="text-align: center; font-size: 12px"><b>Zaitoon</b></p>
+                      <p style="text-align: center; font-size: 11px">Quark Canteen, IITM Chennai</pp>
+                      <p style="text-align: center; font-size: 11px">* Online Sale *</p>
+                      
+                      <hr>
+                      <table>
+                        <tr>
+                          <td style="width: 100px;font-size: 11px"><p>Date: {{ date }}</p></td>
+                          <td style="width: 100px; text-align: right; font-size: 11px"><p>Time: {{ time }}</p></td>
+                        </tr>
+                      </table>
+                    
+                      <p style="font-size: 11px"> Token: {{ order.token }}</p><br>
+                      <span ng-if="order.isDelivery" style="font-size: 11px"> Order Type: Delivery</span><br>
+                      <span ng-if="!order.isDelivery" style="font-size: 11px"> Order Type: Take Away</span><br>
+                      <span ng-if="order.isDelivery" style="font-size: 11px"> Address : {{ order.deliveryAddress }}</span><br>
+                      <span ng-if="order.isDelivery" style="font-size: 11px"> Phone : {{ order.user.mobile }}</span>
+                      </p>
+                      <table>
+                        <tr>
+                          <td><p style="width: 100px; font-size: 11px">ITEM</p></td>
+                          <td style="width: 100px;text-align:right"><p style="font-size: 11px">QTY</td>
+                        </tr>
+                      </table>
+                      <hr>
+                      <table>
+                        <tr ng-repeat="object in order.items">
+                          <td style="width: 100px;font-size: 11px">{{ object.item.name }}</td> 
+                          <td style="width: 100px; text-align:right; font-size: 11px">{{ object.quantity }}</td>
+                        </tr>
+                      </table>
+                      <hr>
+                      <table>
+                        <tr>
+                          <td style="width: 100px; font-size: 11px">Sub Total</td>
+                          <td style="width: 100px; text-align:right; font-size: 11px">Rs. {{ order.billAmount }}</td>
+                        </tr>
+                        <tr ng-if="order.isDelivery">
+                          <td style="width: 100px;font-size: 11px">Packing & Delivery Charge</td>
+                          <td style="twidth: 100px; text-align:right; font-size: 11px">Rs. {{ order.packing_charge + order.delivery_charge}}</td>
+                        </tr>
+                        <tr ng-if="order.isDelivery">
+                          <td style="width: 100px;font-size: 11px">Convenience Charge</td>
+                          <td style="width: 100px; text-align:right; font-size: 11px">Rs. {{ order.conv_charge }}</td>
+                        </tr>
+                        <tr>
+                          <td style="width: 100px;">Total Amount</td>
+                          <td style="width: 100px; text-align:right;">Rs. {{ order.totalAmount }}</td>
+                        </tr>
+                      </table>
+                      <p style="font-size: 11px"> Custom Instructions: {{order.customize_order}}</p>
+                      <p style="text-align: center; font-size:11px">Visit www.sqippr.com</hp>
+                      
+                    </div>
+                  </div>
+                  
+      </ion-content>
+    </ion-tab>
+  
+    <ion-tab title="({{ deliveredNumber }}) Delivered" ui-sref="app.deliveredOrders" ng-controller='deliveredOrdersCtrl'>
+      <ion-content has-header="true" padding="true" class="overflow-scroll" scroll="true">
+        <br><br><br><br>
+                <div class="card" ng-repeat="order in deliveredOrders | orderBy : '-id'">
+                  <div class="item item-divider-custom-delivery" ng-if="order.isDelivery">
+                    Delivery || Order : {{ order.token }}
+                  </div>
+                  <div class="item item-divider-custom-takeAway" ng-if="!order.isDelivery">
+                    Take Away || Order : {{ order.token }}
+                  </div>
+                  
+                  <div class="item item-text-wrap" ng-repeat="object in order.items">
+                    <div class = "row">
+                      <div class = "col"><p style="font-size:18px; text-align:left">{{ object.item.name }}</p></div>
+                      <div class = "col"><p style="font-size:18px; text-align:right">Rs. {{ object.item.price }}</p></div>
+                    </div>
+                    <div class = "row">
+                      <div class = "col"><p> Min Time : {{ object.item.minTime }} min</p></div>
+                      <div class = "col col-20"><p style="text-align:right">{{ item.quantity }} qty</p></div>
+                    </div>
+                  </div>
+                  
+                  <div class="item item-divider item-button-right" ng-if="!order.isDelivery">
+                    Take Away Time :
+                    <button class="button button-small button-assertive button-clear" ng-if="!order.isImmediate">
+                      {{ getTime(order.takeAwayHour, order.takeAwayMinute) }}
+                    </button> 
+                    <button class="button button-small button-assertive button-clear" ng-if="order.isImmediate">
+                     Immediate
+                    </button> 
+                  </div>
+                  
+                  <div class="item item-divider" ng-if="order.isDelivery">
+                    Delivery Address :
+                  </div>
+                  <div class="item item-text-wrap" ng-if="order.isDelivery">
+                      {{ order.deliveryAddress }}
+                  </div>
+                  
+                  <div class="item item-divider item-button-right">
+                    Payment Method :
+                    <button class="button button-small button-assertive button-clear">
+                      {{ order.paymentMethod }}
+                    </button>  
+                  </div>
+                  
+                  <div class="item item-divider">
+                    <div class="row">
+                      <div class="col">
+                        <p style="font-size:15px">Sub Total : Rs. {{ order.billAmount }}/-</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <p style="font-size:15px">Packing Charge : Rs. {{ order.packing_charge }}/-</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <p style="font-size:15px">Delivery Charge : Rs. {{ order.delivery_charge }}/-</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <p style="font-size:15px">Convenience Charge : Rs. {{ order.conv_charge }}/-</p>
+                      </div>
+                    </div>
+                    <div class="item item-divider" ng-if="order.paymentMethod != 'cashOnDelivery'">
+                      Payment Status : {{order.payment_status}}
+                    </div>
+                    <div class="item item-divider" ng-if="order.print_status">
+                      Receipt Print Status : printed
+                    </div>
+                    <div class="item item-divider" ng-if="!order.print_status">
+                      Receipt Print Status : not printed
+                    </div>                    
+                  <div class="col col-50">
+                    <p style="font-size:18px; text-align:left; color: red">Total Amount : Rs. {{ order.totalAmount }}/-</p>
+                  </div>
+                  <div class="col col-25 text-right">
+                    <button class="button button-small button-assertive" ng-click=deliver(order) ng-if="order.paymentMethod == 'cashOnDelivery'">
+                      Deliver
+                    </button>
+                  </div>
+                </div> 
+              </div>
+      </ion-content>
+    </ion-tab>
+
+  </ion-tabs>
+    <div class="float-button" ng-click="scrollToTop()">
+      <span class="height-fix">
+        <a class="content">
+          <i class="ion-arrow-up-a"> </i>
+        </a>
+      </span>
+    </div>
+</ion-view>

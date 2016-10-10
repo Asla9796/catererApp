@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html ng-app="starter.controllers">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>sQippr - Caterer Login</title>
+    
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="img/WhatsApp-Image-20160702.jpeg" sizes="16x16" />
+    <script src="lib/ionic/js/ionic.bundle.js" type="text/javascript"></script>
+    
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/ngStorage.min.js"></script> 
+    
+  </head>
+  <body ng-controller="loginCtrl">
+    
+    <div class="bar bar-header bar-assertive-custom bar-stable">
+      <h1 class="title" style="color:white">Caterer Portal</h1>
+    </div>
+    <ion-scroll zooming="true" direction="y">
+      <!--<div class="item item-body" align="center">-->
+      <!--  <img class="full-image" style="width: 50%; height: 50%" src="" onerror="this.src = '';" alt="Image Missing">-->
+      <!--</div>-->
+      <br><br>
+          <div ng-if="!isOnline">
+            <div class="bar bar-assertive">
+              <h2 class="title">You are not connected to the internet</h2>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+          </div>       
+      <div class="row">
+        <div class="col col-25"></div>
+        <div class="col col-50">
+          <div class="list">
+            <label class="item item-input item-floating-label">
+              <span class="input-label"><i class="icon ion-ios-person"></i>&nbsp &nbsp Email ID</span>
+              <input type="text"  ng-model="user.email" placeholder="Email ID">
+            </label>
+            <label class="item item-input item-floating-label">
+              <span class="input-label"><i class="icon ion-ios-locked"></i>&nbsp &nbsp Password</span>
+              <input type="password" ng-model="user.password"  placeholder="Password">
+            </label>
+          </div>
+          
+          <button class="button button-block button-assertive-custom" ng-click='showAlert(user)'><h4 style="color:white">Login</h4></button>          
+        </div>
+        <div class="col col-25"></div>
+      </div>
+
+      
+      <br><br><br>
+    </ion-scroll>
+
+  </body>
+</html>

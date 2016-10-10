@@ -1,0 +1,49 @@
+<ion-view view-title="Settings" ng-controller='settingsCtrl'>
+  <ion-content class="overflow-scroll" scroll="true" >
+          <div ng-if="!isOnline">
+            <div class="bar bar-assertive">
+              <h2 class="title">You are not connected to the internet</h2>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+          </div>     
+
+    <ion-toggle ng-model=isDeliveryOpen ng-change=deliveryOpen()>&nbsp Accept orders for delivery</ion-toggle>
+    <ion-toggle ng-model=isTakeAwayOpen ng-change=takeAwayOpen()>&nbsp Accept orders for take-away</ion-toggle>
+    
+    <div class="item">
+      <div class="row" ng-click="changePrepTime()">
+        <div class="col col-50">Change minimum preparation time :</div>
+        <div class="col col-50 text-right">{{ minPrepTime }} min</div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="row" ng-click="changePassword()">
+        <div class="col col-50">Change password</div>
+      </div>
+    </div>
+ 
+    <div class="item item-divider">Change availability of menu category:</div>
+    <div ng-repeat = "tag in tags">
+        <div class='item item-borderless item-button-right' ng-init="obj={ check : tag.isAvailable }">
+           <button class="button button-assertive" ng-if="!obj.check" ng-click="obj.check = true; changeAvailable(obj.check,tag)">
+                       Not Available
+           </button>
+           <button class="button button-balanced" ng-if="obj.check" ng-click="obj.check = false; changeAvailable(obj.check,tag)">
+                        Available
+           </button>
+        </div>
+    </div>
+    <div class='item item-borderless item-button-right' ng-init="obj={ check : item.isAvailable }">
+                  <button class="button button-assertive" ng-if="!obj.check" ng-click="obj.check = true; isAvailable(obj.check,item)">
+                   Not Available
+                  </button>
+                  <button class="button button-balanced" ng-if="obj.check" ng-click="obj.check = false; isAvailable(obj.check,item)">
+                    Available
+                  </button>
+                </div>
+  </ion-content>
+</ion-view>
