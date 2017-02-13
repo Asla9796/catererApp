@@ -249,7 +249,7 @@
                       
                     </div>
                   </div>
-                  
+         </ion-scroll>         
       </ion-content>
     </ion-tab>
   

@@ -40,6 +40,11 @@
           <i class="icon ion-ios-arrow-right"></i>
           Settings
         </a>
+        <a class="item item-icon-left item-icon-right" href="#/app/trialpages">
+          <i class="icon ion-ios-gear"></i>
+          <i class="icon ion-ios-arrow-right"></i>
+          Trial pages
+        </a>
         <a class="item item-icon-left item-icon-right"ng-click=logout()>
           <i class="icon ion-ios-person"></i>
           <i class="icon ion-ios-arrow-right"></i>

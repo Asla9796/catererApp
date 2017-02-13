@@ -1,4 +1,4 @@
-var server = "https://data.lingerie91.hasura-app.io/api/";
+var server = "https://data.sqippr.com/api/";
 angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
 
 .controller('loginCtrl',function($scope, $location, $http, $ionicPopup, $ionicLoading, $window, currentDetails) {
@@ -36,7 +36,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
   		
       var loginReq = {
        method: 'POST',
-       url: 'https://auth.lingerie91.hasura-app.io/login',
+       url: 'https://auth.sqippr.com/login',
        data : data
     };
     // console.log(data);
@@ -139,7 +139,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
     
      var userAccountReq = {
             method: 'GET',
-            url:'https://auth.lingerie91.hasura-app.io/user/account/info',
+            url:'https://auth.sqippr.com/user/account/info',
            headers: {
             'Authorization': 'Hasura ' + window.localStorage['token']
           }
@@ -165,7 +165,6 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
   }); 
   
     $scope.scrollToTop = function(){
-      console.log('works');
       $ionicScrollDelegate.scrollTop();
     }; 
   console.log($scope.isOnline);
@@ -590,7 +589,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
           
             var changePasswordReq = {
               method: 'POST',
-                url: 'https://auth.lingerie91.hasura-app.io/user/password/change',
+                url: 'https://auth.sqippr.com/user/password/change',
                 data: {
                   "password": password,
                   "new_password": new_password
@@ -1309,7 +1308,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
           if(res) {
             var logoutReq = {
               method: 'GET',
-              url: 'https://auth.lingerie91.hasura-app.io/user/logout',
+              url: 'https://auth.sqippr.com/user/logout',
               headers: {
                 'Authorization': 'Hasura ' + window.localStorage['token']
               }
