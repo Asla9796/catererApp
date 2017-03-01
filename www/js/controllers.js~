@@ -141,7 +141,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
             method: 'GET',
             url:'https://auth.sqippr.com/user/account/info',
            headers: {
-            'Authorization': 'Hasura ' + window.localStorage['token']
+            'Authorization': 'Bearer ' + window.localStorage['token']
           }
      };
         $http(userAccountReq).then(function(response){
@@ -232,7 +232,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
             "where": {"id": item.id}
           },
           headers: {
-            'Authorization': 'Hasura ' + window.localStorage['token'],
+            'Authorization': 'Bearer ' + window.localStorage['token'],
             'X-Hasura-Role': 'caterer'
           }
         };
@@ -271,38 +271,6 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
      console.log('playing');
         var sound = new Audio("audio/print_notification.wav");
         sound.play();
-     
-    // var cancelPopup = $ionicPopup.show({
-    //     templateUrl : 'templates/cancelPopup.html',
-    //   //   title:'Cancel Orders :',
-    //   //   subTitle: 'Please choose reason for cancellation',
-    //   //   scope: $scope,
-    //   //   buttons: [
-    //   //     { text: 'Cancel',
-    //   //       onTap: function(e) {
-    //   //         var check = 0;
-    //   //         return {
-    //   //           check: check
-    //   //         };
-    //   //       }
-    //   //     },
-    //   //     {
-    //   //       text: '<b>OK</b>',
-    //   //       type: 'button-assertive',
-    //   //       onTap: function(e) {
-    //   //         var check = 1;
-    //   //         return {
-    //   //           check: check
-    //   //         };
-    //   //       }
-    //   //     },
-    //   //   ]
-    //   // });
-       
-    //   // cancelPopup.then(function(res) {
-         
-    //   // });
-    
    };
   
       var getDeliveryTakeAwayReq = {
@@ -313,7 +281,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
            "where": {"id": parseInt(window.localStorage['currentOutletId'])}
          },
          headers: {
-           'Authorization': 'Hasura ' + window.localStorage['token'],
+           'Authorization': 'Bearer ' + window.localStorage['token'],
            'X-Hasura-Role': 'caterer'
           }
         };
@@ -330,11 +298,11 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
         method: 'POST',
         url: server + '1/table/tags/select',
         data: {
-          "columns": [""],
+          "columns": ["*"],
            "where": {"outletId": parseInt(window.localStorage['currentOutletId'])}
          },
          headers: {
-           'Authorization': 'Hasura ' + window.localStorage['token'],
+           'Authorization': 'Bearer ' + window.localStorage['token'],
            'X-Hasura-Role': 'caterer'
           }
         };
@@ -361,7 +329,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
                 "where": {"id": parseInt(window.localStorage['currentOutletId'])}
               },
               headers: {
-                'Authorization': 'Hasura ' + window.localStorage['token'],
+                'Authorization': 'Bearer ' + window.localStorage['token'],
                 'X-Hasura-Role': 'caterer'
                 }
               };
@@ -375,23 +343,26 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
   
   
   $scope.changeAvailable = function(check, tag){
-        /*
+
           var changeMenuGroupReq = {
               method: 'POST',
               url: server + '1/table/tags/update',
               data: {
                 "$set": {"isAvailable": check },
                 "where": {
+                "$set": {"isAvailable": check },
+                "where": {
                     "$and":[
                         {"outletId": parseInt(window.localStorage['currentOutletId'])},
-                        {"name": tag}
+                        {"tag": tag}
                 ]
               },
               headers: {
-                'Authorization': 'Hasura ' + window.localStorage['token'],
+                'Authorization': 'Bearer ' + window.localStorage['token'],
                 'X-Hasura-Role': 'caterer'
                 }
-              };
+              }
+             };
               
               $http(changeMenuGroupReq).then(function(response){
                   console.log(response);
@@ -406,21 +377,22 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
                 "$set": {"isAvailable": check },
                 "where": {
                     "$and":[
-                        {"outletId": parseInt(window.localStorage['currentOutletId'])}
+                        {"outletId": parseInt(window.localStorage['currentOutletId'])},
+                        {"tag": tag}
                 ]
               },
               headers: {
-                'Authorization': 'Hasura ' + window.localStorage['token'],
+                'Authorization': 'Bearer ' + window.localStorage['token'],
                 'X-Hasura-Role': 'caterer'
                 }
-              };
+             }
+           };
               
               $http(groupAvailabilityReq).then(function(response){
                   console.log(response);
                 },function(response){
                   console.log(response);
               });
-           */
               
   };  
   
@@ -439,7 +411,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
            "where": {"id": parseInt(window.localStorage['currentOutletId'])}
          },
          headers: {
-           'Authorization': 'Hasura ' + window.localStorage['token'],
+           'Authorization': 'Bearer ' + window.localStorage['token'],
            'X-Hasura-Role': 'caterer'
           }
         };
@@ -458,7 +430,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
              "where": {"outletId": parseInt(window.localStorage['currentOutletId'])}
            },
            headers: {
-             'Authorization': 'Hasura ' + window.localStorage['token'],
+             'Authorization': 'Bearer ' + window.localStorage['token'],
              'X-Hasura-Role': 'caterer'
             }
           };
@@ -517,7 +489,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
               "where": {"id": parseInt(window.localStorage['currentOutletId'])}
             },
             headers: {
-              'Authorization': 'Hasura ' + window.localStorage['token'],
+              'Authorization': 'Bearer ' + window.localStorage['token'],
               'X-Hasura-Role': 'caterer'
             }
           };
@@ -541,7 +513,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
         "where": {"id": parseInt(window.localStorage['currentOutletId'])}
       },
       headers: {
-        'Authorization': 'Hasura ' + window.localStorage['token'],
+        'Authorization': 'Bearer ' + window.localStorage['token'],
         'X-Hasura-Role': 'caterer'
       }
     };
@@ -595,7 +567,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
                   "new_password": new_password
                 },
                   headers: {
-                    'Authorization': 'Hasura ' + window.localStorage['token']
+                    'Authorization': 'Bearer ' + window.localStorage['token']
                 }
               };
                           
@@ -675,7 +647,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
         }
     },
     headers: {
-        'Authorization': 'Hasura ' + window.localStorage['token'],
+        'Authorization': 'Bearer ' + window.localStorage['token'],
         'X-Hasura-Role': 'caterer'
       }
   };
@@ -708,7 +680,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
     });
   };
   
-  $interval(pending, 1000);
+  $interval(pending, 5000);
   
   $scope.getTime = function(hour, min){
     return orders.timeFormat(hour)+":"+orders.getPadded(min);
@@ -723,7 +695,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
         "where": {"id": id}
       },
       headers: {
-        'Authorization': 'Hasura ' + window.localStorage['token'],
+        'Authorization': 'Bearer ' + window.localStorage['token'],
         'X-Hasura-Role': 'caterer'
       }
     };
@@ -741,7 +713,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
       "where": {"id": itemId}
       },
     headers: {
-      'Authorization': 'Hasura ' + window.localStorage['token'],
+      'Authorization': 'Bearer ' + window.localStorage['token'],
       'X-Hasura-Role': 'caterer'
       }
     };
@@ -761,7 +733,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
         "where": {"id": orderId}
         },
       headers: {
-        'Authorization': 'Hasura ' + window.localStorage['token'],
+        'Authorization': 'Bearer ' + window.localStorage['token'],
         'X-Hasura-Role': 'caterer'
         }
       };
@@ -813,7 +785,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
         "where": {"id": order.id}
       },
       headers: {
-        'Authorization': 'Hasura ' + window.localStorage['token'],
+        'Authorization': 'Bearer ' + window.localStorage['token'],
         'X-Hasura-Role': 'caterer'
       }
     };
@@ -838,7 +810,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
               "where": {"id": order.id}
             },
             headers: {
-              'Authorization': 'Hasura ' + window.localStorage['token'],
+              'Authorization': 'Bearer ' + window.localStorage['token'],
               'X-Hasura-Role': 'caterer'
             }
           };
@@ -891,7 +863,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
               "where": {"id": order.id}
             },
             headers: {
-              'Authorization': 'Hasura ' + window.localStorage['token'],
+              'Authorization': 'Bearer ' + window.localStorage['token'],
               'X-Hasura-Role': 'caterer'
             }
           };
@@ -951,7 +923,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
         }
     },
     headers: {
-        'Authorization': 'Hasura ' + window.localStorage['token'],
+        'Authorization': 'Bearer ' + window.localStorage['token'],
         'X-Hasura-Role': 'caterer'
       }
   };
@@ -979,7 +951,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
     });
   };
   
-  $interval(confirmed, 1000);
+  $interval(confirmed, 5000);
   
   $scope.getTime = function(hour, min){
     return orders.timeFormat(hour)+":"+orders.getPadded(min);
@@ -1006,7 +978,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
     url: server + '1/table/orders/update',
     data: data,
     headers: {
-      'Authorization': 'Hasura ' + window.localStorage['token'],
+      'Authorization': 'Bearer ' + window.localStorage['token'],
       'X-Hasura-Role': 'caterer'
     }
   };
@@ -1045,7 +1017,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
             "where": {"id": order.id}
             },
           headers: {
-            'Authorization': 'Hasura ' + window.localStorage['token'],
+            'Authorization': 'Bearer ' + window.localStorage['token'],
             'X-Hasura-Role': 'caterer'
           }
         };
@@ -1072,7 +1044,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
                 "where": {"id": parseInt(window.localStorage['currentOutletId'])}
               },
               headers: {
-                'Authorization': 'Hasura ' + window.localStorage['token'],
+                'Authorization': 'Bearer ' + window.localStorage['token'],
                 'X-Hasura-Role': 'caterer'
               }
             };
@@ -1174,7 +1146,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
         }
     },
     headers: {
-        'Authorization': 'Hasura ' + window.localStorage['token'],
+        'Authorization': 'Bearer ' + window.localStorage['token'],
         'X-Hasura-Role': 'caterer'
       }
   };
@@ -1196,7 +1168,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
   });
   };
   
-  $interval(delivered, 1000);
+  $interval(delivered, 5000);
   
   $scope.getTime = function(hour, min){
     return orders.timeFormat(hour)+":"+orders.getPadded(min);
@@ -1213,7 +1185,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
         "where": {"id": order.id}
       },
       headers: {
-        'Authorization': 'Hasura ' + window.localStorage['token'],
+        'Authorization': 'Bearer ' + window.localStorage['token'],
         'X-Hasura-Role': 'caterer'
       }
     };
@@ -1263,7 +1235,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
         }
     },
     headers: {
-        'Authorization': 'Hasura ' + window.localStorage['token'],
+        'Authorization': 'Bearer ' + window.localStorage['token'],
         'X-Hasura-Role': 'caterer'
       }
   };
@@ -1285,7 +1257,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
   });
   };
   
-  $interval(canceled, 1000);
+  $interval(canceled, 5000);
   
   $scope.getTime = function(hour, min){
     return orders.timeFormat(hour)+":"+orders.getPadded(min);
@@ -1310,7 +1282,7 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
               method: 'GET',
               url: 'https://auth.sqippr.com/user/logout',
               headers: {
-                'Authorization': 'Hasura ' + window.localStorage['token']
+                'Authorization': 'Bearer ' + window.localStorage['token']
               }
             };
             $http(logoutReq).then(function(response){

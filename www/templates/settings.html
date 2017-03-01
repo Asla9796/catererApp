@@ -11,7 +11,11 @@
             <br>
           </div>     
 
-    <ion-toggle ng-model=isDeliveryOpen ng-change=deliveryOpen()>&nbsp Accept orders for delivery</ion-toggle>
+    <div class="row">
+    	<div class="col col-10">
+    	</div>
+    	<div class="col col-80">
+			<ion-toggle ng-model=isDeliveryOpen ng-change=deliveryOpen()>&nbsp Accept orders for delivery</ion-toggle>
     <ion-toggle ng-model=isTakeAwayOpen ng-change=takeAwayOpen()>&nbsp Accept orders for take-away</ion-toggle>
     
     <div class="item">
@@ -29,21 +33,25 @@
     <div class="item item-divider">Change availability of menu category:</div>
     <div ng-repeat = "tag in tags">
         <div class='item item-borderless item-button-right' ng-init="obj={ check : tag.isAvailable }">
-           <button class="button button-assertive" ng-if="!obj.check" ng-click="obj.check = true; changeAvailable(obj.check,tag)">
+        	<p style="font-size:16px" ng-if="tag.name=='maincourse'">&nbsp Maincourse</p>
+        	<p style="font-size:16px" ng-if="tag.name=='salads'">&nbsp Salads</p>
+        	<p style="font-size:16px" ng-if="tag.name=='starters'">&nbsp Starters</p>
+        	<p style="font-size:16px" ng-if="tag.name=='snacks'">&nbsp Snacks and Sandwiches</p>
+        	<p style="font-size:16px" ng-if="tag.name=='breakfast'">&nbsp Breakfast</p>
+        	<p style="font-size:16px" ng-if="tag.name=='drinks'">&nbsp Juices & Beverages</p>
+        	<p style="font-size:16px" ng-if="tag.name=='desserts'">&nbsp Desserts</p>
+           <button class="button button-assertive" ng-if="!obj.check" ng-click="obj.check = true; changeAvailable(obj.check,tag.name)">
                        Not Available
            </button>
-           <button class="button button-balanced" ng-if="obj.check" ng-click="obj.check = false; changeAvailable(obj.check,tag)">
+           <button class="button button-balanced" ng-if="obj.check" ng-click="obj.check = false; changeAvailable(obj.check,tag.name)">
                         Available
            </button>
         </div>
     </div>
-    <div class='item item-borderless item-button-right' ng-init="obj={ check : item.isAvailable }">
-                  <button class="button button-assertive" ng-if="!obj.check" ng-click="obj.check = true; isAvailable(obj.check,item)">
-                   Not Available
-                  </button>
-                  <button class="button button-balanced" ng-if="obj.check" ng-click="obj.check = false; isAvailable(obj.check,item)">
-                    Available
-                  </button>
-                </div>
+    <div class="col col-10">
+    </div>    	
+    	</div>
+    </div>
+
   </ion-content>
 </ion-view>
