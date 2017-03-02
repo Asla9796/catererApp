@@ -350,18 +350,16 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
               data: {
                 "$set": {"isAvailable": check },
                 "where": {
-                "$set": {"isAvailable": check },
-                "where": {
-                    "$and":[
+						"$and":[
                         {"outletId": parseInt(window.localStorage['currentOutletId'])},
                         {"tag": tag}
-                ]
-              },
+                	]
+                }                
+               },
               headers: {
                 'Authorization': 'Bearer ' + window.localStorage['token'],
                 'X-Hasura-Role': 'caterer'
                 }
-              }
              };
               
               $http(changeMenuGroupReq).then(function(response){
@@ -380,12 +378,12 @@ angular.module('starter.controllers', ['ngStorage', 'ionic','starter.services'])
                         {"outletId": parseInt(window.localStorage['currentOutletId'])},
                         {"tag": tag}
                 ]
-              },
+             }
+           },
               headers: {
                 'Authorization': 'Bearer ' + window.localStorage['token'],
                 'X-Hasura-Role': 'caterer'
                 }
-             }
            };
               
               $http(groupAvailabilityReq).then(function(response){
